@@ -360,6 +360,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227492842}
   m_CullTransparentMesh: 1
+--- !u!1 &378710095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 378710098}
+  - component: {fileID: 378710097}
+  - component: {fileID: 378710096}
+  m_Layer: 0
+  m_Name: BotPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &378710096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378710095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63993cea3f56ccd4c943e91099bbc5c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &378710097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378710095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1447aee56a2fd4fbd014593d7f6ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 811830491}
+  _controller: {fileID: 378710096}
+--- !u!4 &378710098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378710095}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 550.5, y: 259.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 811830489}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &436163906
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +432,7 @@ GameObject:
   - component: {fileID: 436163909}
   - component: {fileID: 436163908}
   m_Layer: 5
-  m_Name: Body
+  m_Name: BodyDefence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -442,19 +501,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 436163909}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 555251730}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: BodyDefence
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &436163909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,7 +553,7 @@ GameObject:
   - component: {fileID: 468094174}
   - component: {fileID: 468094173}
   m_Layer: 5
-  m_Name: Head
+  m_Name: HeadDefence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -575,19 +622,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 468094174}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 555251730}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: HeadDefence
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &468094174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,7 +757,7 @@ GameObject:
   - component: {fileID: 521788597}
   - component: {fileID: 521788596}
   m_Layer: 5
-  m_Name: Foot
+  m_Name: LegsAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -791,19 +826,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 521788597}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 555251730}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: LegAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &521788597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,7 +879,7 @@ GameObject:
   - component: {fileID: 555251726}
   - component: {fileID: 555251730}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -957,12 +980,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555251725}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.95, y: 0.027287938, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -554.45, y: -259.47272, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 1638459133}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &555251730
 MonoBehaviour:
@@ -973,13 +996,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 555251725}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 027f14dc889037844826d161caca5bfc, type: 3}
+  m_Script: {fileID: 11500000, guid: b2ba24877b443434c876f772477d2cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealthPoint: {fileID: 48812739}
-  playerHealth: 100
-  attackType: 1
-  defenceType: 11
+  _health: 100
+  _attackDamage: 10
 --- !u!1 &557541337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,11 +1189,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1191099151}
-  playerTurn: 0
-  player: {fileID: 555251730}
-  bot: {fileID: 811830490}
-  damage: 10
-  timer: 5
+  player01: {fileID: 1638459132}
+  player02: {fileID: 378710097}
+  turnDuration: 5
 --- !u!4 &580792860
 Transform:
   m_ObjectHideFlags: 0
@@ -1279,8 +1298,9 @@ GameObject:
   - component: {fileID: 811830487}
   - component: {fileID: 811830486}
   - component: {fileID: 811830490}
+  - component: {fileID: 811830491}
   m_Layer: 0
-  m_Name: Bot
+  m_Name: BotCharacter
   m_TagString: Bot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1381,12 +1401,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811830485}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.03, y: 0.027287938, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -546.47, y: -259.47272, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 378710098}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &811830490
 MonoBehaviour:
@@ -1404,6 +1424,20 @@ MonoBehaviour:
   botHealth: 100
   botAttack: 0
   botDefence: 0
+--- !u!114 &811830491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811830485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2ba24877b443434c876f772477d2cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
+  _attackDamage: 10
 --- !u!1 &822325827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,7 +1451,7 @@ GameObject:
   - component: {fileID: 822325830}
   - component: {fileID: 822325829}
   m_Layer: 5
-  m_Name: Head
+  m_Name: HeadAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1486,19 +1520,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 822325830}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 555251730}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: HeadAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &822325830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1968,7 +1990,7 @@ GameObject:
   - component: {fileID: 1270134064}
   - component: {fileID: 1270134063}
   m_Layer: 5
-  m_Name: Body
+  m_Name: BodyAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2037,19 +2059,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1270134064}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 555251730}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: BodyAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1270134064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2088,6 +2098,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270134061}
   m_CullTransparentMesh: 1
+--- !u!1 &1638459130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1638459133}
+  - component: {fileID: 1638459132}
+  - component: {fileID: 1638459131}
+  m_Layer: 0
+  m_Name: HumanPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1638459131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638459130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d384ea8aa572a354fa03f42ee9d5ade5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1638459132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638459130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1447aee56a2fd4fbd014593d7f6ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 555251730}
+  _controller: {fileID: 1638459131}
+--- !u!4 &1638459133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638459130}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 550.5, y: 259.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 555251729}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1775414516
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,6 +2248,7 @@ GameObject:
   - component: {fileID: 1890044812}
   - component: {fileID: 1890044811}
   - component: {fileID: 1890044810}
+  - component: {fileID: 1890044814}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2264,13 +2334,34 @@ RectTransform:
   - {fileID: 1250553634}
   - {fileID: 1191099150}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1890044814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890044809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f8d1e404822de4994c1c64797e9758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackHead: {fileID: 822325829}
+  _attackBody: {fileID: 1270134063}
+  _attackLegs: {fileID: 521788596}
+  _defendHead: {fileID: 468094173}
+  _defendBody: {fileID: 436163908}
+  _defendLegs: {fileID: 1910246585}
+  _humanPlayerController: {fileID: 1638459131}
+  _player01CharacterHealth: {fileID: 48812739}
+  _player02CharacterHealth: {fileID: 557541339}
 --- !u!1 &1910246583
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,7 +2375,7 @@ GameObject:
   - component: {fileID: 1910246586}
   - component: {fileID: 1910246585}
   m_Layer: 5
-  m_Name: Foot
+  m_Name: LegsDefence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2353,19 +2444,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1910246586}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 555251730}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: LegDefence
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1910246586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2506,5 +2585,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
