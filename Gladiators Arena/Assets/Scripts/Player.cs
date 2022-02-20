@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] 
-    private Character _character;
-    public Character Character => _character;
+    //[SerializeField] 
+    //private Character _character;
+    //public Character Character => _character;
+
+    [SerializeField]
+    private Murmillon _murmillon;
+    public Murmillon Murmillon => _murmillon;
 
     [SerializeField] 
     private TurnInfo _turnInfo;

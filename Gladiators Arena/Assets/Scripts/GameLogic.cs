@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameLogic : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class GameLogic : MonoBehaviour
     private float timer = 10;
     [SerializeField] [Range(0, 60)] private float turnDuration = 10;
 
+    public Animations animator;
+
+    [SerializeField] private GameObject _restartlLevel;
+
+    private bool enableTimer = true;
+
     private void Awake()
     {
         Instance = this;
@@ -22,26 +29,30 @@ public class GameLogic : MonoBehaviour
 
     void Start()
     {
+        _restartlLevel.SetActive(false);
         StartCoroutine(Battle());
     }
 
     private void Update()
     {
         timerText.text = Mathf.Ceil(timer).ToString();
-        timer -= Time.deltaTime;
+
+        if(enableTimer)
+        {
+            timer -= Time.deltaTime;
+        }
+        
     }
 
     private IEnumerator Battle()
     {
-        timer = turnDuration
-            
-            ;
+        timer = turnDuration;
 
-        while (player01.Character.Health > 0 && player02.Character.Health > 0)
+        while (player01.Murmillon.Health > 0 && player02.Murmillon.Health > 0)
         {
             player01.Controller.Unlock();
             player02.Controller.Unlock();
-            yield return new WaitForSeconds(turnDuration); // ������ ��� �����, ������ ��� ��� ������� �� ��������
+            yield return new WaitForSeconds(turnDuration);
             player01.ApplyTurn();
             player02.ApplyTurn();
             DoAttackAttack(player01, player02);
@@ -59,13 +70,26 @@ public class GameLogic : MonoBehaviour
 
     public void IsDead()
     {
-        StopAllCoroutines();
-        StopCoroutine(Battle());
+        enableTimer = false;
+        _restartlLevel.SetActive(true);
     }
 
     public void DoAttackAttack(Player attacker, Player defender)
     {
         if (defender.TurnInfo.defenceBodyPart != attacker.TurnInfo.attackBodyPart)
-            defender.Character.ApplyDamage(attacker.Character.AttackDamage);
+        {
+            defender.Murmillon.ApplyDamage(attacker.Murmillon.AttackDamage);
+        }
     }
+
+    public void RestartBattle()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }

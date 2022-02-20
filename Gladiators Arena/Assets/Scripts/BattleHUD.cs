@@ -29,21 +29,25 @@ public class BattleHUD : MonoBehaviour
         _defendBody.onClick.AddListener(() => _humanPlayerController.SetDefenceBodyPart(BodyPart.Body));
         _defendLegs.onClick.AddListener(() => _humanPlayerController.SetDefenceBodyPart(BodyPart.Leg));
         
-        _humanPlayerController.OnBodyPartChanged += UpdateButtonsState;
+        _humanPlayerController.OnAttackBodyPartChanged += UpdateAttackButtonsState;
+        _humanPlayerController.OnDefenceBodyPartChanged += UpdateDefenceButtonsState;
     }
 
     private void Update()
     {
-        _player01CharacterHealth.text = GameLogic.Instance.player01.Character.Health.ToString();
-        _player02CharacterHealth.text = GameLogic.Instance.player02.Character.Health.ToString();
+        _player01CharacterHealth.text = GameLogic.Instance.player01.Murmillon.Health.ToString();
+        _player02CharacterHealth.text = GameLogic.Instance.player02.Murmillon.Health.ToString();
     }
 
-    private void UpdateButtonsState()
+    private void UpdateAttackButtonsState()
     {
         _attackHead.interactable = _humanPlayerController.Attack != BodyPart.Head;
         _attackBody.interactable = _humanPlayerController.Attack != BodyPart.Body;
         _attackLegs.interactable = _humanPlayerController.Attack != BodyPart.Leg;
-        
+    }
+
+    private void UpdateDefenceButtonsState()
+    {
         _defendHead.interactable = _humanPlayerController.Defence != BodyPart.Head;
         _defendBody.interactable = _humanPlayerController.Defence != BodyPart.Body;
         _defendLegs.interactable = _humanPlayerController.Defence != BodyPart.Leg;

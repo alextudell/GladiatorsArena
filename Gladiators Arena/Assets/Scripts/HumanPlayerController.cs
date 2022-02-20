@@ -12,18 +12,19 @@ public class HumanPlayerController : PlayerController
     private BodyPart _defence;
     public BodyPart Defence => _defence;
 
-    public Action OnBodyPartChanged;
+    public Action OnAttackBodyPartChanged;
+    public Action OnDefenceBodyPartChanged;
 
     public void SetAttackBodyPart(BodyPart part)
     {
         _attack = part;
-        OnBodyPartChanged?.Invoke();
+        OnAttackBodyPartChanged?.Invoke();
     }
     
     public void SetDefenceBodyPart(BodyPart part)
     {
         _defence = part;
-        OnBodyPartChanged?.Invoke();
+        OnDefenceBodyPartChanged?.Invoke();
     }
     
     public override TurnInfo GetTurn()
@@ -38,6 +39,7 @@ public class HumanPlayerController : PlayerController
     {
         _attack = BodyPart.None;
         _defence = BodyPart.None;
-        OnBodyPartChanged?.Invoke();
+        OnAttackBodyPartChanged?.Invoke();
+        OnDefenceBodyPartChanged?.Invoke();
     }
 }
