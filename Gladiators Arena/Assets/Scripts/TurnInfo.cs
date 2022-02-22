@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TurnInfo
 {
+    public bool forceAttack;
+    public bool forceDefence;
     public BodyPart attackBodyPart = BodyPart.None;
     public BodyPart defenceBodyPart = BodyPart.None;
 }

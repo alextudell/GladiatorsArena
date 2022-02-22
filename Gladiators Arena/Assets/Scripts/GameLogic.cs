@@ -78,7 +78,14 @@ public class GameLogic : MonoBehaviour
     {
         if (defender.TurnInfo.defenceBodyPart != attacker.TurnInfo.attackBodyPart)
         {
-            defender.Murmillon.ApplyDamage(attacker.Murmillon.AttackDamage);
+            if(attacker.TurnInfo.forceAttack)
+            {
+                defender.Murmillon.ApplyDamage(attacker.Murmillon.ForceAttackDamage);
+            }
+            else
+            {
+                defender.Murmillon.ApplyDamage(attacker.Murmillon.AttackDamage);
+            }
         }
     }
 

@@ -15,10 +15,30 @@ public class HumanPlayerController : PlayerController
     public Action OnAttackBodyPartChanged;
     public Action OnDefenceBodyPartChanged;
 
+    private bool _forceAttack;
+    public bool ForceAttack => _forceAttack;
+
+    private bool _forceDefence;
+    public bool ForceDefence => _forceDefence;
+
+
     public void SetAttackBodyPart(BodyPart part)
     {
-        _attack = part;
-        OnAttackBodyPartChanged?.Invoke();
+        if(ForceDefence)
+        {
+            return;
+        }
+        if (_attack == BodyPart.None)
+        {
+            _forceAttack = false;
+        }
+        else if (_attack == part)
+        {
+            _forceAttack = true;
+        }
+
+            _attack = part;
+            OnAttackBodyPartChanged?.Invoke();
     }
     
     public void SetDefenceBodyPart(BodyPart part)
@@ -30,6 +50,8 @@ public class HumanPlayerController : PlayerController
     public override TurnInfo GetTurn()
     {
         var turn = new TurnInfo();
+        turn.forceAttack = _forceAttack;
+        turn.forceDefence = _forceDefence;
         turn.attackBodyPart = _attack;
         turn.defenceBodyPart = _defence;
         return turn;
@@ -37,6 +59,7 @@ public class HumanPlayerController : PlayerController
 
     public override void Reset()
     {
+        _forceAttack = false;
         _attack = BodyPart.None;
         _defence = BodyPart.None;
         OnAttackBodyPartChanged?.Invoke();

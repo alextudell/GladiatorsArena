@@ -19,6 +19,11 @@ public class BattleHUD : MonoBehaviour
     [SerializeField] private Text _player01CharacterHealth;
     [SerializeField] private Text _player02CharacterHealth;
 
+    public Sprite interactableAttack;
+    public Sprite selectedAttack;
+    public Sprite forceAttack;
+    public Sprite uninteractableAttack;
+
     private void Start()
     {
         _attackHead.onClick.AddListener(() => _humanPlayerController.SetAttackBodyPart(BodyPart.Head));
@@ -41,15 +46,39 @@ public class BattleHUD : MonoBehaviour
 
     private void UpdateAttackButtonsState()
     {
-        _attackHead.interactable = _humanPlayerController.Attack != BodyPart.Head;
-        _attackBody.interactable = _humanPlayerController.Attack != BodyPart.Body;
-        _attackLegs.interactable = _humanPlayerController.Attack != BodyPart.Leg;
+        _attackHead.interactable = (_humanPlayerController.Attack == BodyPart.Head || _humanPlayerController.Attack == BodyPart.None) && !_humanPlayerController.ForceDefence;
+        _attackBody.interactable = (_humanPlayerController.Attack == BodyPart.Body || _humanPlayerController.Attack == BodyPart.None) && !_humanPlayerController.ForceDefence;
+        _attackLegs.interactable = (_humanPlayerController.Attack == BodyPart.Leg || _humanPlayerController.Attack == BodyPart.None) && !_humanPlayerController.ForceDefence;
     }
 
     private void UpdateDefenceButtonsState()
     {
-        _defendHead.interactable = _humanPlayerController.Defence != BodyPart.Head;
-        _defendBody.interactable = _humanPlayerController.Defence != BodyPart.Body;
-        _defendLegs.interactable = _humanPlayerController.Defence != BodyPart.Leg;
+        _defendHead.interactable = (_humanPlayerController.Defence == BodyPart.Head || _humanPlayerController.Defence == BodyPart.None) && !_humanPlayerController.ForceAttack;
+        _defendBody.interactable = (_humanPlayerController.Defence == BodyPart.Body || _humanPlayerController.Defence == BodyPart.None) && !_humanPlayerController.ForceAttack;
+        _defendLegs.interactable = (_humanPlayerController.Defence == BodyPart.Leg || _humanPlayerController.Defence == BodyPart.None) && !_humanPlayerController.ForceAttack;
+    }
+
+    private void SetButtonState(Button button, bool selected, bool force, bool interactable)
+    {
+        if(!interactable)
+        {
+            button.image.sprite = uninteractableAttack;
+            button.interactable = false;
+        }
+        else if(!selected)
+        {
+            button.image.sprite = interactableAttack;
+            button.interactable = true;
+        }
+        else if(selected && !force)
+        {
+            button.image.sprite = selectedAttack;
+            button.interactable = true;
+        }
+        else if(selected && force)
+        {
+            button.image.sprite = forceAttack;
+            button.interactable = true;
+        }
     }
 }

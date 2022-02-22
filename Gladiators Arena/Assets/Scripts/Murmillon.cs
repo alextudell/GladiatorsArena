@@ -12,6 +12,11 @@ public class Murmillon : Character
     private int _attackDamage = 10;
     public int AttackDamage => _attackDamage;
 
+    [SerializeField]
+    private int _forceAttackDamage = 10;
+    public int ForceAttackDamage => _forceAttackDamage;
+
+
     public override void ApplyDamage(int damage)
     {
         _health -= damage;

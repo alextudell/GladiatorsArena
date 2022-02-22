@@ -6,12 +6,8 @@ public class Animations : MonoBehaviour
 {
     public Animator animator;
 
-    public void GotInHead(Player attacker, Player defender)
-    {
-        if (defender.TurnInfo.defenceBodyPart != attacker.TurnInfo.attackBodyPart)
-        {
+    public void GotInHead()
+    {   
             animator.SetBool("GotInHead", true);
-        }
-
     }
 }
