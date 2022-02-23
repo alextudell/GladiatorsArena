@@ -24,6 +24,10 @@ public class BattleHUD : MonoBehaviour
     public Sprite forceAttack;
     public Sprite uninteractableAttack;
 
+    [SerializeField] private bool _selectedButton = true;
+    [SerializeField] private bool _forceButton = true;
+    [SerializeField] private bool _bodyPartNone = false;
+
     private void Start()
     {
         _attackHead.onClick.AddListener(() => _humanPlayerController.SetAttackBodyPart(BodyPart.Head));
@@ -49,6 +53,25 @@ public class BattleHUD : MonoBehaviour
         _attackHead.interactable = (_humanPlayerController.Attack == BodyPart.Head || _humanPlayerController.Attack == BodyPart.None) && !_humanPlayerController.ForceDefence;
         _attackBody.interactable = (_humanPlayerController.Attack == BodyPart.Body || _humanPlayerController.Attack == BodyPart.None) && !_humanPlayerController.ForceDefence;
         _attackLegs.interactable = (_humanPlayerController.Attack == BodyPart.Leg || _humanPlayerController.Attack == BodyPart.None) && !_humanPlayerController.ForceDefence;
+
+        if(_humanPlayerController.Attack == BodyPart.Head && !_humanPlayerController.ForceAttack)
+        {
+            SetButtonState(_attackHead, _selectedButton, !_forceButton, _attackHead.interactable);
+            SetButtonState(_attackBody, _selectedButton, _forceButton, _attackBody.interactable);
+            SetButtonState(_attackLegs, _selectedButton, _forceButton, _attackLegs.interactable);
+        }
+        else if(_humanPlayerController.Attack == BodyPart.Head && _humanPlayerController.ForceAttack)
+        {
+            SetButtonState(_attackHead, _selectedButton, _forceButton, _attackHead.interactable);
+            SetButtonState(_attackBody, _selectedButton, _forceButton, _attackBody.interactable);
+            SetButtonState(_attackLegs, _selectedButton, _forceButton, _attackLegs.interactable);
+        }
+        else if(_humanPlayerController.Attack == BodyPart.None)
+        {
+            SetButtonState(_attackHead, _bodyPartNone, _forceButton, _attackHead.interactable);
+            SetButtonState(_attackBody, _bodyPartNone, _forceButton, _attackBody.interactable);
+            SetButtonState(_attackLegs, _bodyPartNone, _forceButton, _attackLegs.interactable);
+        }
     }
 
     private void UpdateDefenceButtonsState()
