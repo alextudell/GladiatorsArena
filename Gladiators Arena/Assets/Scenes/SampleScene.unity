@@ -640,10 +640,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 8600863526919e243921557755d948b5, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 2c11ff8895cb4ca42af245385125fed8, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: 8600863526919e243921557755d948b5, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 2c11ff8895cb4ca42af245385125fed8, type: 3}
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -972,10 +972,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: fd4e53a63b4c98d409527181fedacd34, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 406527d2a3c090b42a367857737a8cbb, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: fd4e53a63b4c98d409527181fedacd34, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 406527d2a3c090b42a367857737a8cbb, type: 3}
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1130,6 +1130,7 @@ GameObject:
   - component: {fileID: 521788598}
   - component: {fileID: 521788597}
   - component: {fileID: 521788596}
+  - component: {fileID: 521788599}
   m_Layer: 5
   m_Name: LegsAttack
   m_TagString: Untagged
@@ -1185,10 +1186,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 3c8ac429f07d8c34e89047df0569ca9a, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: a6a603847ae119a44b19f3f4e29257e0, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: 3c8ac429f07d8c34e89047df0569ca9a, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: a6a603847ae119a44b19f3f4e29257e0, type: 3}
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1238,6 +1239,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521788594}
   m_CullTransparentMesh: 1
+--- !u!114 &521788599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521788594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5505b1e30569607408ce8c89d66bd501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _battleHud: {fileID: 1890044814}
+  _humanPlayerController: {fileID: 1638459131}
+  interactableAttack: {fileID: 21300000, guid: cf9a8f42f24c5594b881bf69db950bac, type: 3}
+  selectedAttack: {fileID: 21300000, guid: a6a603847ae119a44b19f3f4e29257e0, type: 3}
+  forceAttack: {fileID: 21300000, guid: 200550d1581635748879f46df94226c7, type: 3}
+  uninteractableAttack: {fileID: 21300000, guid: d1844ddd5fd5132419cf6a58f9891bda, type: 3}
+  _selectedButton: 1
+  _forceButton: 1
+  _partNone: 0
 --- !u!1 &555251725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,7 +1508,7 @@ MonoBehaviour:
   timerText: {fileID: 1191099151}
   player01: {fileID: 1638459132}
   player02: {fileID: 378710097}
-  turnDuration: 5
+  turnDuration: 5.2
   animator: {fileID: 0}
   _restartlLevel: {fileID: 460836102}
 --- !u!4 &580792860
@@ -1785,6 +1807,7 @@ GameObject:
   - component: {fileID: 822325831}
   - component: {fileID: 822325830}
   - component: {fileID: 822325829}
+  - component: {fileID: 822325832}
   m_Layer: 5
   m_Name: HeadAttack
   m_TagString: Untagged
@@ -1840,10 +1863,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: caefe7bb30e40ae4789c196a4bf618d2, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 97d7633c92ff9784f9ba1df2df763e7d, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: caefe7bb30e40ae4789c196a4bf618d2, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 97d7633c92ff9784f9ba1df2df763e7d, type: 3}
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1893,6 +1916,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822325827}
   m_CullTransparentMesh: 1
+--- !u!114 &822325832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822325827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5505b1e30569607408ce8c89d66bd501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _battleHud: {fileID: 1890044814}
+  _humanPlayerController: {fileID: 1638459131}
+  interactableAttack: {fileID: 21300000, guid: 0c5c34b434a90a642ad11897ec222a91, type: 3}
+  selectedAttack: {fileID: 21300000, guid: 97d7633c92ff9784f9ba1df2df763e7d, type: 3}
+  forceAttack: {fileID: 21300000, guid: 200550d1581635748879f46df94226c7, type: 3}
+  uninteractableAttack: {fileID: 21300000, guid: 7b48749133169a646a2e3d9c7d546f80, type: 3}
+  _selectedButton: 1
+  _forceButton: 1
+  _partNone: 0
 --- !u!1 &877160363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2072,6 +2116,7 @@ GameObject:
   - component: {fileID: 956635753}
   - component: {fileID: 956635752}
   - component: {fileID: 956635751}
+  - component: {fileID: 956635755}
   m_Layer: 0
   m_Name: MurmelonPlayer
   m_TagString: Untagged
@@ -2163,6 +2208,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &956635755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956635750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1447aee56a2fd4fbd014593d7f6ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _murmillon: {fileID: 0}
+  _controller: {fileID: 0}
 --- !u!1 &1191099149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,6 +2351,7 @@ GameObject:
   - component: {fileID: 1270134065}
   - component: {fileID: 1270134064}
   - component: {fileID: 1270134063}
+  - component: {fileID: 1270134066}
   m_Layer: 5
   m_Name: BodyAttack
   m_TagString: Untagged
@@ -2347,10 +2407,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: cecbf7becdfa8df4aa2366958a38c037, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: ad975ade5a8dc6a4ea2bfeadea49f135, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: cecbf7becdfa8df4aa2366958a38c037, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: ad975ade5a8dc6a4ea2bfeadea49f135, type: 3}
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -2400,6 +2460,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270134061}
   m_CullTransparentMesh: 1
+--- !u!114 &1270134066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270134061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5505b1e30569607408ce8c89d66bd501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _battleHud: {fileID: 1890044814}
+  _humanPlayerController: {fileID: 1638459131}
+  interactableAttack: {fileID: 21300000, guid: e51ccaf71256daa4c8129e1a565f1974, type: 3}
+  selectedAttack: {fileID: 21300000, guid: ad975ade5a8dc6a4ea2bfeadea49f135, type: 3}
+  forceAttack: {fileID: 21300000, guid: 200550d1581635748879f46df94226c7, type: 3}
+  uninteractableAttack: {fileID: 21300000, guid: 2d3dd16d2692ed749adb12d3045ce75e, type: 3}
+  _selectedButton: 1
+  _forceButton: 1
+  _partNone: 0
 --- !u!1 &1638459130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2874,10 +2955,19 @@ MonoBehaviour:
   _humanPlayerController: {fileID: 1638459131}
   _player01CharacterHealth: {fileID: 48812739}
   _player02CharacterHealth: {fileID: 557541339}
-  interactableAttack: {fileID: 0}
-  selectedAttack: {fileID: 0}
-  forceAttack: {fileID: 0}
-  uninteractableAttack: {fileID: 0}
+  interactableAttack: {fileID: 21300000, guid: fd4e53a63b4c98d409527181fedacd34, type: 3}
+  selectedAttack: {fileID: 21300000, guid: 97d7633c92ff9784f9ba1df2df763e7d, type: 3}
+  forceAttack: {fileID: 21300000, guid: 200550d1581635748879f46df94226c7, type: 3}
+  uninteractableAttack: {fileID: 21300000, guid: dea69a6964de0fe48b5cfb64be235518, type: 3}
+  interactableDefence: {fileID: 21300000, guid: 972fd25deff32af459db47585080fa8d, type: 3}
+  selectedDefence: {fileID: 21300000, guid: 2c11ff8895cb4ca42af245385125fed8, type: 3}
+  forceDefence: {fileID: 21300000, guid: da592d513b7e89c43a8f19b14965c186, type: 3}
+  uninteractableDefence: {fileID: 21300000, guid: 8e374f7279446bc4881e98ab8edcd76f, type: 3}
+  _selectedAttackButton: 1
+  _forceAttackButton: 1
+  _selectedDefenceButton: 1
+  _forceDefenceButton: 1
+  _bodyPartNone: 0
 --- !u!1 &1910246583
 GameObject:
   m_ObjectHideFlags: 0
@@ -2945,10 +3035,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 4430fc7a5195af546b45ec19a693d88d, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 9b734c75a307929439a06de16b9de524, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: 4430fc7a5195af546b45ec19a693d88d, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 9b734c75a307929439a06de16b9de524, type: 3}
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
