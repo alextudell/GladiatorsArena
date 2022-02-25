@@ -15,6 +15,6 @@ public enum BodyPart
     Head = 1,
     Body = 2,
     Leg = 3,
-    None = 99
+    None = 99,
 }
 

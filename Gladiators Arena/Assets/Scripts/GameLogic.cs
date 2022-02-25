@@ -78,7 +78,11 @@ public class GameLogic : MonoBehaviour
     {
         if (defender.TurnInfo.defenceBodyPart != attacker.TurnInfo.attackBodyPart)
         {
-            if(attacker.TurnInfo.forceAttack)
+            if (attacker.TurnInfo.attackBodyPart == BodyPart.None)
+            {
+                return;
+            }
+            else if(attacker.TurnInfo.forceAttack)
             {
                 defender.Murmillon.ApplyDamage(attacker.Murmillon.ForceAttackDamage);
             }
@@ -87,6 +91,20 @@ public class GameLogic : MonoBehaviour
                 defender.Murmillon.ApplyDamage(attacker.Murmillon.AttackDamage);
             }
         }
+
+        if(defender.TurnInfo.defenceBodyPart == attacker.TurnInfo.attackBodyPart)
+        {
+            if (defender.TurnInfo.forceDefence)
+            {
+                attacker.Murmillon.ApplyDamage(attacker.Murmillon.AttackDamage * 2);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        
     }
 
     public void RestartBattle()

@@ -21,6 +21,12 @@ public class HumanPlayerController : PlayerController
     private bool _forceDefence;
     public bool ForceDefence => _forceDefence;
 
+    private void Start()
+    {
+        _attack = BodyPart.None;
+        _defence = BodyPart.None;
+    }
+
 
     public void SetAttackBodyPart(BodyPart part)
     {
@@ -32,17 +38,30 @@ public class HumanPlayerController : PlayerController
         {
             _forceAttack = false;
         }
-        else if (_attack == part)
+        else if (_attack == part && _defence != BodyPart.Head && _defence != BodyPart.Body && _defence != BodyPart.Leg)
         {
             _forceAttack = true;
         }
 
-            _attack = part;
-            OnAttackBodyPartChanged?.Invoke();
+        _attack = part;
+        OnAttackBodyPartChanged?.Invoke();
     }
     
     public void SetDefenceBodyPart(BodyPart part)
     {
+        if (ForceAttack)
+        {
+            return;
+        }
+        if(_defence == BodyPart.None)
+        {
+            _forceDefence = false;
+        }
+        else if(_defence == part && _attack != BodyPart.Head && _attack != BodyPart.Body && _attack != BodyPart.Leg)
+        {
+            _forceDefence = true;
+        }
+
         _defence = part;
         OnDefenceBodyPartChanged?.Invoke();
     }
@@ -60,6 +79,7 @@ public class HumanPlayerController : PlayerController
     public override void Reset()
     {
         _forceAttack = false;
+        _forceDefence = false;
         _attack = BodyPart.None;
         _defence = BodyPart.None;
         OnAttackBodyPartChanged?.Invoke();

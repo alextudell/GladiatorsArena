@@ -36,6 +36,7 @@ public class BattleHUD : MonoBehaviour
     [SerializeField] private bool _forceDefenceButton = true;
     [SerializeField] private bool _bodyPartNone = false;
 
+
     private void Start()
     {
         _attackHead.onClick.AddListener(() => _humanPlayerController.SetAttackBodyPart(BodyPart.Head));
@@ -154,6 +155,13 @@ public class BattleHUD : MonoBehaviour
             SetDefenceButtonState(_defendBody, _bodyPartNone, _forceDefenceButton, _defendBody.interactable);
             SetDefenceButtonState(_defendLegs, _bodyPartNone, _forceDefenceButton, _defendLegs.interactable);
         }
+        else if (_humanPlayerController.Defence == BodyPart.None && _humanPlayerController.ForceAttack)
+        {
+            SetDefenceButtonState(_defendHead, _selectedDefenceButton, _forceDefenceButton, _bodyPartNone);
+            SetDefenceButtonState(_defendBody, _selectedDefenceButton, _forceDefenceButton, _bodyPartNone);
+            SetDefenceButtonState(_defendLegs, _selectedDefenceButton, _forceDefenceButton, _bodyPartNone);
+        }
+
     }
 
     private void SetAttackButtonState(Button button, bool selected, bool force, bool interactable)
