@@ -16,8 +16,6 @@ public class GameLogic : MonoBehaviour
     private float timer = 10;
     [SerializeField] [Range(0, 60)] private float turnDuration = 10;
 
-    public Animations animator;
-
     [SerializeField] private GameObject _restartlLevel;
 
     private bool enableTimer = true;

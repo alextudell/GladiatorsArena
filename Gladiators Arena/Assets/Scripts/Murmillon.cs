@@ -20,6 +20,11 @@ public class Murmillon : Character
     public override void ApplyDamage(int damage)
     {
         _health -= damage;
+
+        if(_health < 0)
+        {
+            _health = 0;
+        }
     }
 
 }
