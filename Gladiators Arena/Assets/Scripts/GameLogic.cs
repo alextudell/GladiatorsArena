@@ -54,6 +54,7 @@ public class GameLogic : MonoBehaviour
             player01.ApplyTurn();
             player02.ApplyTurn();
             DoAttackAttack(player01, player02);
+            //yield return new WaitForSeconds(2.0f);
             DoAttackAttack(player02, player01);
             player01.Controller.Lock();
             player02.Controller.Lock();
@@ -82,11 +83,13 @@ public class GameLogic : MonoBehaviour
             }
             else if(attacker.TurnInfo.forceAttack)
             {
-                defender.Murmillon.ApplyDamage(attacker.Murmillon.ForceAttackDamage);
+                var damageInfo = new DamageInfo(attacker.Murmillon.ForceAttackDamage, attacker.TurnInfo.attackBodyPart);
+                defender.Murmillon.ApplyDamage(damageInfo);
             }
             else
             {
-                defender.Murmillon.ApplyDamage(attacker.Murmillon.AttackDamage);
+                var damageInfo = new DamageInfo(attacker.Murmillon.AttackDamage, attacker.TurnInfo.attackBodyPart);
+                defender.Murmillon.ApplyDamage(damageInfo);
             }
         }
 
@@ -94,13 +97,18 @@ public class GameLogic : MonoBehaviour
         {
             if (defender.TurnInfo.forceDefence)
             {
-                attacker.Murmillon.ApplyDamage(attacker.Murmillon.AttackDamage * 2);
+                var damageInfo = new DamageInfo(attacker.Murmillon.AttackDamage * 2, attacker.TurnInfo.attackBodyPart);
+                attacker.Murmillon.ApplyDamage(damageInfo);
             }
             else
             {
                 return;
             }
         }
+
+
+
+
 
         
     }

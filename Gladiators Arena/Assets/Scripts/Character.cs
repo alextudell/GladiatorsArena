@@ -4,19 +4,30 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    //[SerializeField] 
-    //private int _health = 100;
-    //public int Health => _health;
+    [SerializeField]
+    private int _health = 120;
+    public int Health => _health;
 
-    //[SerializeField] 
-    //private int _attackDamage = 10;
-    //public int AttackDamage => _attackDamage;
+    [SerializeField]
+    private int _attackDamage = 10;
+    public int AttackDamage => _attackDamage;
 
-    public abstract void ApplyDamage(int damage);
+    [SerializeField]
+    private int _forceAttackDamage = 10;
+    public int ForceAttackDamage => _forceAttackDamage;
 
+    [SerializeField] protected CharacterView characterView;
 
-    //public void ApplyDamage(int damage)
-    //{
-    //    _health -= damage;
-    //}
+    public virtual void ApplyDamage(DamageInfo damage)
+    {
+        characterView.HitInBodyPart(damage.BodyPart);
+        _health -= damage.DamageValue;
+        //characterView.GotInBodyPart(damage.BodyPart);
+
+        if (_health < 0)
+        {
+            _health = 0;
+        }
+    }
+
 }
