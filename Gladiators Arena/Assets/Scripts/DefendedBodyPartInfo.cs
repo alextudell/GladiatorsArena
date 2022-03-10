@@ -2,18 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageInfo
+public class DefendedBodyPartInfo : MonoBehaviour
 {
-
-    private int _damageValue;
-    public int DamageValue => _damageValue;
-
     private BodyPart _bodyPart;
     public BodyPart BodyPart => _bodyPart;
 
-    public DamageInfo (int damageValue, BodyPart bodyPart)
+    public DefendedBodyPartInfo(int damageValue, BodyPart bodyPart)
     {
-        _damageValue = damageValue;
         _bodyPart = bodyPart;
     }
 }

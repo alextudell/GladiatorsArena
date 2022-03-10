@@ -54,8 +54,23 @@ public class GameLogic : MonoBehaviour
             player01.ApplyTurn();
             player02.ApplyTurn();
             DoAttackAttack(player01, player02);
-            //yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(2.0f);
             DoAttackAttack(player02, player01);
+            player01.Controller.Lock();
+            player02.Controller.Lock();
+            player01.Controller.Reset();
+            player02.Controller.Reset();
+            yield return new WaitForSeconds(1.0f);
+            timer = turnDuration;
+
+            player01.Controller.Unlock();
+            player02.Controller.Unlock();
+            yield return new WaitForSeconds(turnDuration);
+            player01.ApplyTurn();
+            player02.ApplyTurn();
+            DoAttackAttack(player02, player01);
+            yield return new WaitForSeconds(2.0f);
+            DoAttackAttack(player01, player02);
             player01.Controller.Lock();
             player02.Controller.Lock();
             player01.Controller.Reset();
@@ -79,26 +94,50 @@ public class GameLogic : MonoBehaviour
         {
             if (attacker.TurnInfo.attackBodyPart == BodyPart.None)
             {
+                //var damageInfo = new DamageInfo(attacker.Murmillon.ForceAttackDamage, attacker.TurnInfo.attackBodyPart);
+                //defender.Murmillon.TakingDamageClip(damageInfo);
                 return;
             }
             else if(attacker.TurnInfo.forceAttack)
             {
                 var damageInfo = new DamageInfo(attacker.Murmillon.ForceAttackDamage, attacker.TurnInfo.attackBodyPart);
-                defender.Murmillon.ApplyDamage(damageInfo);
+                attacker.Murmillon.ApplyDamage(damageInfo);
+                defender.Murmillon.TakingDamageClip(damageInfo);
             }
             else
             {
                 var damageInfo = new DamageInfo(attacker.Murmillon.AttackDamage, attacker.TurnInfo.attackBodyPart);
-                defender.Murmillon.ApplyDamage(damageInfo);
+                attacker.Murmillon.ApplyDamage(damageInfo);
+                defender.Murmillon.TakingDamageClip(damageInfo);
             }
         }
 
-        if(defender.TurnInfo.defenceBodyPart == attacker.TurnInfo.attackBodyPart)
+        //if (defender.TurnInfo.defenceBodyPart == attacker.TurnInfo.attackBodyPart)
+        //{
+        //    if (attacker.TurnInfo.attackBodyPart == BodyPart.None)
+        //    {
+        //        return;
+        //    }
+        //    else if (attacker.TurnInfo.forceAttack)
+        //    {
+        //        var damageInfo = new DamageInfo(attacker.Murmillon.ForceAttackDamage, attacker.TurnInfo.attackBodyPart);
+        //        attacker.Murmillon.ApplyDamage(damageInfo);
+        //        defender.Murmillon.TakingDamageClip(damageInfo);
+        //    }
+        //    else
+        //    {
+        //        var damageInfo = new DamageInfo(attacker.Murmillon.AttackDamage, attacker.TurnInfo.attackBodyPart);
+        //        attacker.Murmillon.ApplyDamage(damageInfo);
+        //        defender.Murmillon.TakingDamageClip(damageInfo);
+        //    }
+        //}
+
+        if (defender.TurnInfo.defenceBodyPart == attacker.TurnInfo.attackBodyPart)
         {
             if (defender.TurnInfo.forceDefence)
             {
                 var damageInfo = new DamageInfo(attacker.Murmillon.AttackDamage * 2, attacker.TurnInfo.attackBodyPart);
-                attacker.Murmillon.ApplyDamage(damageInfo);
+                //attacker.Murmillon.ApplyDamage(damageInfo);
             }
             else
             {

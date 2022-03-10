@@ -22,12 +22,15 @@ public abstract class Character : MonoBehaviour
     {
         characterView.HitInBodyPart(damage.BodyPart);
         _health -= damage.DamageValue;
-        //characterView.GotInBodyPart(damage.BodyPart);
-
         if (_health < 0)
         {
             _health = 0;
         }
+    }
+
+    public virtual void TakingDamageClip(DamageInfo bodyPart)
+    {
+        characterView.GotInBodyPart(bodyPart.BodyPart);
     }
 
 }
