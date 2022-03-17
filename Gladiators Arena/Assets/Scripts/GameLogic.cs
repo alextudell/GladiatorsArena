@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameLogic : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameLogic : MonoBehaviour
 
     public Player player01;
     public Player player02;
+
+    public GameObject atakue;
     
     private float timer = 10;
     [SerializeField] [Range(0, 60)] private float turnDuration = 10;
@@ -33,7 +36,7 @@ public class GameLogic : MonoBehaviour
 
     private void Update()
     {
-        timerText.text = Mathf.Ceil(timer).ToString();
+        timerText.text = Mathf.Ceil(Mathf.Clamp(timer, 0, 9999)).ToString();
 
         if(enableTimer)
         {
@@ -60,7 +63,14 @@ public class GameLogic : MonoBehaviour
             player02.Controller.Lock();
             player01.Controller.Reset();
             player02.Controller.Reset();
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(4.0f);
+            
+            if(player01.Murmillon.Health <= 0 || player02.Murmillon.Health <= 0)
+            {
+                IsDead(player01, player02);
+                StopCoroutine(Battle());
+            }
+
             timer = turnDuration;
 
             player01.Controller.Unlock();
@@ -75,87 +85,109 @@ public class GameLogic : MonoBehaviour
             player02.Controller.Lock();
             player01.Controller.Reset();
             player02.Controller.Reset();
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(4.0f);
             timer = turnDuration;
+
         }
 
-        IsDead();
+        IsDead(player01, player02);
     }
 
-    public void IsDead()
+    public void IsDead(Player playerOne, Player playerTwo)
     {
         enableTimer = false;
         _restartlLevel.SetActive(true);
+
+        if(playerOne.Murmillon.Health <= 0)
+        {
+            playerOne.Murmillon.DeadClip();
+            playerTwo.Murmillon.VictoryClip();
+        }
+        else if(playerTwo.Murmillon.Health <=0)
+        {
+            playerTwo.Murmillon.DeadClip();
+            playerOne.Murmillon.VictoryClip();
+        }
     }
 
     public void DoAttackAttack(Player attacker, Player defender)
     {
+        StartCoroutine(DoAttackAttackRoutine(attacker, defender));
+    }
+
+    public IEnumerator DoAttackAttackRoutine(Player attacker, Player defender)
+    {
         var defenderBodyPart = defender.TurnInfo.defenceBodyPart;
         var attackerBodyPart = attacker.TurnInfo.attackBodyPart;
 
-        bool forceAttack = attacker.TurnInfo.forceAttack;
+        var attackDamage = attacker.Murmillon.AttackDamage;
+        var forceAttackDamage = attacker.Murmillon.ForceAttackDamage;
+        var counterattackDamage = attacker.Murmillon.CounterattackDamage;
+
+        var damageInfo = new DamageInfo(attackDamage, attackerBodyPart);
+        var forceDamageInfo = new DamageInfo(forceAttackDamage, attackerBodyPart);
+        var counterattackDamageInfo = new DamageInfo(counterattackDamage, attackerBodyPart); 
+
+        bool counterattack = attacker.TurnInfo.forceAttack;
         bool forceDefence = defender.TurnInfo.forceDefence;
 
-        bool hasDamagae = true;
-        bool hasDefence = true;
-
-        if (defenderBodyPart != attacker.TurnInfo.attackBodyPart)
+        if (attackerBodyPart == BodyPart.None)
         {
-            if (attacker.TurnInfo.attackBodyPart == BodyPart.None)
-            {
-                //var damageInfo = new DamageInfo(attacker.Murmillon.ForceAttackDamage, attacker.TurnInfo.attackBodyPart);
-                //defender.Murmillon.TakingDamageClip(damageInfo);
-                return;
-            }
-            else if(forceAttack && !forceDefence)
-            {
-                var damageInfo = new DamageInfo(attacker.Murmillon.ForceAttackDamage, attacker.TurnInfo.attackBodyPart);
+            yield break;
+        }
 
-                attacker.Murmillon.ApplyDamage(forceAttack, hasDamagae, damageInfo);
-                defender.Murmillon.TakingDamageClip(!forceDefence, hasDefence, defenderBodyPart, attackerBodyPart);
-            }
-            else if (forceAttack && forceDefence)
+        if (defenderBodyPart != attackerBodyPart)
+        {
+            if (counterattack && !forceDefence)
             {
-                var damageInfo = new DamageInfo(attacker.Murmillon.ForceAttackDamage, attacker.TurnInfo.attackBodyPart);
-
-                attacker.Murmillon.ApplyDamage(forceAttack, !hasDamagae, damageInfo);
-                defender.Murmillon.TakingDamageClip(forceDefence, hasDefence, defenderBodyPart, attackerBodyPart);
-                defender.Murmillon.ApplyDamage(forceAttack, hasDamagae, damageInfo);
+                attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
+                defender.Murmillon.ApplyDamage(counterattackDamageInfo);
+                defender.Murmillon.TakingDamageClip(!forceDefence, defenderBodyPart, attackerBodyPart);
+            }
+            else if (counterattack && forceDefence)
+            {
+                attacker.Murmillon.AttackClip(!counterattack, attackerBodyPart);
+                defender.Murmillon.TakingDamageClip(forceDefence, defenderBodyPart, attackerBodyPart);
+                yield return null;
+                //defender.Murmillon.AttackClip(forceAttack, attackerBodyPart);
+                defender.Murmillon.ApplyDamage(forceDamageInfo);
 
             }
             else
             {
-                var damageInfo = new DamageInfo(attacker.Murmillon.AttackDamage, attacker.TurnInfo.attackBodyPart);
-
-                attacker.Murmillon.ApplyDamage(!forceAttack, hasDamagae, damageInfo);
-                defender.Murmillon.TakingDamageClip(!forceDefence, hasDefence, defenderBodyPart, attackerBodyPart);
+                attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
+                defender.Murmillon.TakingDamageClip(forceDefence, defenderBodyPart, attackerBodyPart);
+                yield return null;
+                defender.Murmillon.ApplyDamage(damageInfo);
             }
         }
 
-        if (defenderBodyPart == attacker.TurnInfo.attackBodyPart)
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        if (defenderBodyPart == attackerBodyPart)
         {
-            if (forceDefence && !forceAttack)
+            if (forceDefence && !counterattack)
             {
-                var damageInfo = new DamageInfo(attacker.Murmillon.AttackDamage * 2, attacker.TurnInfo.attackBodyPart);
-
-                attacker.Murmillon.ApplyDamage(!forceAttack, !hasDamagae, damageInfo);
+                attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
                 defender.Murmillon.DefendedClip(forceDefence, defenderBodyPart);
-                defender.Murmillon.ApplyDamage(forceAttack, forceDefence, damageInfo);
+                yield return null;
+                defender.Murmillon.AttackClip(!counterattack, defenderBodyPart);
+                attacker.Murmillon.TakingDamageClip(forceDefence, BodyPart.None, defenderBodyPart);
+                attacker.Murmillon.ApplyDamage(forceDamageInfo);
             }
-            else if (forceDefence && forceAttack)
+            else if (forceDefence && counterattack)
             {
-                var damageInfo = new DamageInfo(attacker.Murmillon.AttackDamage * 2, attacker.TurnInfo.attackBodyPart);
-
-                attacker.Murmillon.ApplyDamage(forceAttack, !hasDamagae, damageInfo);
+                attacker.Murmillon.AttackClip(!counterattack, attackerBodyPart);
                 defender.Murmillon.DefendedClip(forceDefence, defenderBodyPart);
-                defender.Murmillon.ApplyDamage(forceAttack, forceDefence, damageInfo);
+                yield return null;
+                defender.Murmillon.AttackClip(!counterattack, defenderBodyPart);
+                attacker.Murmillon.TakingDamageClip(forceDefence, BodyPart.None, defenderBodyPart);
+                attacker.Murmillon.ApplyDamage(forceDamageInfo);
             }
             else
             {
-                var damageInfo = new DamageInfo(attacker.Murmillon.AttackDamage, attacker.TurnInfo.attackBodyPart);
-
-                attacker.Murmillon.ApplyDamage(!forceAttack, !hasDamagae, damageInfo);
-                defender.Murmillon.DefendedClip(!forceDefence, defenderBodyPart);
+                attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
+                defender.Murmillon.DefendedClip(forceDefence, defenderBodyPart);
                 //return;
             }
         }

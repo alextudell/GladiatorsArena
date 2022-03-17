@@ -13,32 +13,33 @@ public abstract class Character : MonoBehaviour
     public int AttackDamage => _attackDamage;
 
     [SerializeField]
+    private int _counterattackDamage = 15;
+    public int CounterattackDamage => _counterattackDamage;
+
+    [SerializeField]
     private int _forceAttackDamage = 20;
     public int ForceAttackDamage => _forceAttackDamage;
 
     [SerializeField] protected CharacterView characterView;
 
-    public virtual void ApplyDamage(bool forceAttack, bool hasDamage, DamageInfo damage)
+    public virtual void ApplyDamage(DamageInfo damage)
     {
-        if (hasDamage)
-        {
-            characterView.HitInBodyPart(forceAttack, damage.BodyPart);
             _health -= damage.DamageValue;
 
             if (_health < 0)
             {
                 _health = 0;
             }
-        }
-        else
-        {
-            characterView.HitInBodyPart(forceAttack, damage.BodyPart);
-        }
     }
 
-    public virtual void TakingDamageClip(bool forceDefence, bool hasDefence, BodyPart defenderBodyPart, BodyPart attackerBodyPart)
+    public virtual void AttackClip(bool forceAttack, BodyPart defenderBodyPart)
     {
-        characterView.GotInBodyPart(forceDefence, hasDefence, defenderBodyPart, attackerBodyPart);
+        characterView.HitInBodyPart(forceAttack, defenderBodyPart);
+    }
+
+    public virtual void TakingDamageClip(bool forceDefence, BodyPart defenderBodyPart, BodyPart attackerBodyPart)
+    {
+        characterView.GotInBodyPart(forceDefence, defenderBodyPart, attackerBodyPart);
     }
 
 
@@ -47,4 +48,13 @@ public abstract class Character : MonoBehaviour
         characterView.DefendedBodyPart(forceDefence, defendedBodyPart);
     }
 
+    public virtual void VictoryClip()
+    {
+        characterView.VictoryClip();
+    }
+
+    public virtual void DeadClip()
+    {
+        characterView.DeadClip();
+    }
 }

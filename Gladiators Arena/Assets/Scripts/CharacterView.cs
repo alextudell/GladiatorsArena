@@ -5,72 +5,69 @@ using UnityEngine;
 public class CharacterView : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
+    //[SerializeField] SpriteRenderer spriteRend;
 
-    public void GotInBodyPart (bool forceDefence, bool hasDefence, BodyPart defenderBodyPart, BodyPart attackerBodyPart)
+    public void GotInBodyPart (bool forceDefence, BodyPart defenderBodyPart, BodyPart attackerBodyPart)
     {
-        if (!hasDefence)
+        //spriteRend.sortingOrder = 100;
+
+        if (defenderBodyPart == BodyPart.None && attackerBodyPart == BodyPart.Head)
         {
-            switch (defenderBodyPart)
-            {
-                case BodyPart.Head:
-                    _animator.SetTrigger("GotInHead");
-                    break;
-
-                case BodyPart.Body:
-                    _animator.SetTrigger("GotInBody");
-                    break;
-
-                case BodyPart.Leg:
-                    _animator.SetTrigger("GotInLegs");
-                    break;
-            }
+            _animator.SetTrigger("GotInHead");
         }
-        else if(!forceDefence && hasDefence && defenderBodyPart == BodyPart.Head && attackerBodyPart == BodyPart.Body)
+        else if (defenderBodyPart == BodyPart.None && attackerBodyPart == BodyPart.Body)
+        {
+            _animator.SetTrigger("GotInBody");
+        }
+        else if (defenderBodyPart == BodyPart.None && attackerBodyPart == BodyPart.Leg)
+        {
+            _animator.SetTrigger("GotInLegs");
+        }
+        else if (!forceDefence && defenderBodyPart == BodyPart.Head && attackerBodyPart == BodyPart.Body)
         {
             _animator.SetTrigger("DefendedHeadGotInBody");
         }
-        else if(!forceDefence && hasDefence && defenderBodyPart == BodyPart.Head && attackerBodyPart == BodyPart.Leg)
+        else if(!forceDefence && defenderBodyPart == BodyPart.Head && attackerBodyPart == BodyPart.Leg)
         {
             _animator.SetTrigger("DefendedHeadGotInLegs");
         }
-        else if(!forceDefence && hasDefence && defenderBodyPart == BodyPart.Body && attackerBodyPart == BodyPart.Head)
+        else if(!forceDefence && defenderBodyPart == BodyPart.Body && attackerBodyPart == BodyPart.Head)
         {
             _animator.SetTrigger("DefendedBodyGotInHead");
         }
-        else if (!forceDefence && hasDefence && defenderBodyPart == BodyPart.Body && attackerBodyPart == BodyPart.Leg)
+        else if (!forceDefence && defenderBodyPart == BodyPart.Body && attackerBodyPart == BodyPart.Leg)
         {
             _animator.SetTrigger("DefendedBodyGotInLegs");
         }
-        else if (!forceDefence && hasDefence && defenderBodyPart == BodyPart.Leg && attackerBodyPart == BodyPart.Head)
+        else if (!forceDefence && defenderBodyPart == BodyPart.Leg && attackerBodyPart == BodyPart.Head)
         {
             _animator.SetTrigger("DefendedLegsGotInHead");
         }
-        else if (!forceDefence && hasDefence && defenderBodyPart == BodyPart.Leg && attackerBodyPart == BodyPart.Body)
+        else if (!forceDefence && defenderBodyPart == BodyPart.Leg && attackerBodyPart == BodyPart.Body)
         {
             _animator.SetTrigger("DefendedLegsGotInBody");
         }
-
-        else if (forceDefence && hasDefence && defenderBodyPart == BodyPart.Head && attackerBodyPart == BodyPart.Body)
+        else if (forceDefence && defenderBodyPart == BodyPart.Head && attackerBodyPart == BodyPart.Body)
         {
             _animator.SetTrigger("ForceDefendedHeadGotInBody");
         }
-        else if (forceDefence && hasDefence && defenderBodyPart == BodyPart.Head && attackerBodyPart == BodyPart.Leg)
+        else if (forceDefence && defenderBodyPart == BodyPart.Head && attackerBodyPart == BodyPart.Leg)
         {
             _animator.SetTrigger("ForceDefendedHeadGotInLegs");
         }
-        else if (forceDefence && hasDefence && defenderBodyPart == BodyPart.Body && attackerBodyPart == BodyPart.Head)
+        else if (forceDefence && defenderBodyPart == BodyPart.Body && attackerBodyPart == BodyPart.Head)
         {
             _animator.SetTrigger("ForceDefendedBodyGotInHead");
         }
-        else if (forceDefence && hasDefence && defenderBodyPart == BodyPart.Body && attackerBodyPart == BodyPart.Leg)
+        else if (forceDefence && defenderBodyPart == BodyPart.Body && attackerBodyPart == BodyPart.Leg)
         {
             _animator.SetTrigger("ForceDefendedBodyGotInLegs");
         }
-        else if (forceDefence && hasDefence && defenderBodyPart == BodyPart.Leg && attackerBodyPart == BodyPart.Head)
+        else if (forceDefence && defenderBodyPart == BodyPart.Leg && attackerBodyPart == BodyPart.Head)
         {
             _animator.SetTrigger("ForceDefendedLegsGotInHead");
         }
-        else if (forceDefence && hasDefence && defenderBodyPart == BodyPart.Leg && attackerBodyPart == BodyPart.Body)
+        else if (forceDefence && defenderBodyPart == BodyPart.Leg && attackerBodyPart == BodyPart.Body)
         {
             _animator.SetTrigger("ForceDefendedLegsGotInBody");
         }
@@ -78,6 +75,7 @@ public class CharacterView : MonoBehaviour
 
     public void HitInBodyPart(bool forceAttack, BodyPart bodypart)
     {
+        //spriteRend.sortingOrder = 1;
         if (!forceAttack)
         {
             switch (bodypart)
@@ -116,6 +114,7 @@ public class CharacterView : MonoBehaviour
 
     public void DefendedBodyPart(bool forceDefence, BodyPart bodypart)
     {
+        //spriteRend.sortingOrder = 100;
         if (!forceDefence)
         {
             switch (bodypart)
@@ -150,5 +149,15 @@ public class CharacterView : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void VictoryClip()
+    {
+        _animator.SetTrigger("Victory");
+    }
+
+    public void DeadClip()
+    {
+        _animator.SetTrigger("Dead");
     }
 }
