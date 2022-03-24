@@ -7,7 +7,7 @@ public class BotPlayerController : PlayerController
     public override TurnInfo GetTurn()
     {
         var turn = new TurnInfo();
-        //turn.attackBodyPart = BodyPart.Head; // For test
+        //turn.attackBodyPart = BodyPart.Leg; // For test
         //return turn; // for test
         int randomForcedAction = Random.Range(1, 10);
 

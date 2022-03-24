@@ -64,6 +64,9 @@ public class BattleHUD : MonoBehaviour
             _attackHead.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, _attackHead.interactable);
             _attackBody.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, _attackBody.interactable);
             _attackLegs.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, _attackLegs.interactable);
+            _defendHead.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, !_defendHead.interactable);
+            _defendBody.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, !_defendBody.interactable);
+            _defendLegs.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, !_defendLegs.interactable);
         }
         else if (_humanPlayerController.Attack == BodyPart.Body && !_humanPlayerController.ForceAttack)
         {
@@ -76,6 +79,9 @@ public class BattleHUD : MonoBehaviour
             _attackBody.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, _attackBody.interactable);
             _attackHead.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, _attackHead.interactable);
             _attackLegs.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, _attackLegs.interactable);
+            _defendHead.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, !_defendHead.interactable);
+            _defendBody.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, !_defendBody.interactable);
+            _defendLegs.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, !_defendLegs.interactable);
         }
         else if (_humanPlayerController.Attack == BodyPart.Leg && !_humanPlayerController.ForceAttack)
         {
@@ -88,6 +94,9 @@ public class BattleHUD : MonoBehaviour
             _attackLegs.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, _attackLegs.interactable);
             _attackHead.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, _attackHead.interactable);
             _attackBody.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, _attackBody.interactable);
+            _defendHead.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, !_defendHead.interactable);
+            _defendBody.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, !_defendBody.interactable);
+            _defendLegs.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, !_defendLegs.interactable);
         }
         else if (_humanPlayerController.Attack == BodyPart.None)
         {
@@ -114,6 +123,9 @@ public class BattleHUD : MonoBehaviour
             _defendHead.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _defendHead.interactable);
             _defendBody.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _defendBody.interactable);
             _defendLegs.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _defendLegs.interactable);
+            _attackBody.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, !_attackBody.interactable);
+            _attackHead.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, !_attackHead.interactable);
+            _attackLegs.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, !_attackLegs.interactable);
         }
         else if (_humanPlayerController.Defence == BodyPart.Body && !_humanPlayerController.ForceDefence)
         {
@@ -126,6 +138,9 @@ public class BattleHUD : MonoBehaviour
             _defendBody.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _defendBody.interactable);
             _defendHead.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _defendHead.interactable);
             _defendLegs.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _defendLegs.interactable);
+            _attackBody.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, !_attackBody.interactable);
+            _attackHead.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, !_attackHead.interactable);
+            _attackLegs.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, !_attackLegs.interactable);
         }
         else if (_humanPlayerController.Defence == BodyPart.Leg && !_humanPlayerController.ForceDefence)
         {
@@ -138,18 +153,15 @@ public class BattleHUD : MonoBehaviour
             _defendLegs.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _defendLegs.interactable);
             _defendHead.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _defendHead.interactable);
             _defendBody.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _defendBody.interactable);
+            _attackBody.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, !_attackBody.interactable);
+            _attackHead.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, !_attackHead.interactable);
+            _attackLegs.SetAttackButtonState(_selectedAttackButton, _forceAttackButton, !_attackLegs.interactable);
         }
         else if (_humanPlayerController.Defence == BodyPart.None)
         {
             _defendHead.SetDefenceButtonState(_bodyPartNone, _forceDefenceButton, _defendHead.interactable);
             _defendBody.SetDefenceButtonState(_bodyPartNone, _forceDefenceButton, _defendBody.interactable);
             _defendLegs.SetDefenceButtonState(_bodyPartNone, _forceDefenceButton, _defendLegs.interactable);
-        }
-        else if (_humanPlayerController.Defence == BodyPart.None && _humanPlayerController.ForceAttack)
-        {
-            _defendHead.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _bodyPartNone);
-            _defendBody.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _bodyPartNone);
-            _defendLegs.SetDefenceButtonState(_selectedDefenceButton, _forceDefenceButton, _bodyPartNone);
         }
     }
 }

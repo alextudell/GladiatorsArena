@@ -5,11 +5,12 @@ using UnityEngine;
 public class CharacterView : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-    //[SerializeField] SpriteRenderer spriteRend;
+    [SerializeField] private GameObject _player01;
+    [SerializeField] private GameObject _player02;
+   
 
     public void GotInBodyPart (bool forceDefence, BodyPart defenderBodyPart, BodyPart attackerBodyPart)
     {
-        //spriteRend.sortingOrder = 100;
 
         if (defenderBodyPart == BodyPart.None && attackerBodyPart == BodyPart.Head)
         {
@@ -75,7 +76,6 @@ public class CharacterView : MonoBehaviour
 
     public void HitInBodyPart(bool forceAttack, BodyPart bodypart)
     {
-        //spriteRend.sortingOrder = 1;
         if (!forceAttack)
         {
             switch (bodypart)
@@ -114,7 +114,6 @@ public class CharacterView : MonoBehaviour
 
     public void DefendedBodyPart(bool forceDefence, BodyPart bodypart)
     {
-        //spriteRend.sortingOrder = 100;
         if (!forceDefence)
         {
             switch (bodypart)

@@ -1384,9 +1384,10 @@ MonoBehaviour:
   timerText: {fileID: 1191099151}
   player01: {fileID: 956635756}
   player02: {fileID: 909721751}
-  atakue: {fileID: 0}
   turnDuration: 3
   _restartlLevel: {fileID: 460836102}
+  _playerOne: {fileID: 1915752826}
+  _playerTwo: {fileID: 883037463}
 --- !u!4 &580792860
 Transform:
   m_ObjectHideFlags: 0
@@ -1459,6 +1460,10 @@ PrefabInstance:
     - target: {fileID: 5373508028578723519, guid: 17d901f4c8edcf741ab1912ea336abef, type: 3}
       propertyPath: _forceAttackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008963245092684517, guid: 17d901f4c8edcf741ab1912ea336abef, type: 3}
+      propertyPath: m_Name
+      value: BotCharacterView
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d901f4c8edcf741ab1912ea336abef, type: 3}
@@ -1768,6 +1773,11 @@ Transform:
   m_Father: {fileID: 1666284010}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &883037463 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4082792781395076221, guid: 17d901f4c8edcf741ab1912ea336abef, type: 3}
+  m_PrefabInstance: {fileID: 591393389}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &909721746
 GameObject:
   m_ObjectHideFlags: 0
@@ -2777,6 +2787,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910246583}
   m_CullTransparentMesh: 1
+--- !u!212 &1915752826 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4082792781395076221, guid: 17d901f4c8edcf741ab1912ea336abef, type: 3}
+  m_PrefabInstance: {fileID: 5373508028026621613}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1923531189
 GameObject:
   m_ObjectHideFlags: 0
@@ -2947,6 +2962,10 @@ PrefabInstance:
     - target: {fileID: 5373508028578723519, guid: 17d901f4c8edcf741ab1912ea336abef, type: 3}
       propertyPath: _forceAttackDamage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008963245092684517, guid: 17d901f4c8edcf741ab1912ea336abef, type: 3}
+      propertyPath: m_Name
+      value: PlayerCharacterView
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d901f4c8edcf741ab1912ea336abef, type: 3}

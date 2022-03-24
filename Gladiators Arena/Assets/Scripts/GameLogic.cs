@@ -1,10 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class GameLogic : MonoBehaviour
 {
@@ -14,12 +11,13 @@ public class GameLogic : MonoBehaviour
     public Player player01;
     public Player player02;
 
-    public GameObject atakue;
-    
     private float timer = 10;
     [SerializeField] [Range(0, 60)] private float turnDuration = 10;
 
     [SerializeField] private GameObject _restartlLevel;
+
+    [SerializeField] private SpriteRenderer _playerOne;
+    [SerializeField] private SpriteRenderer _playerTwo;
 
     private bool enableTimer = true;
 
@@ -56,21 +54,16 @@ public class GameLogic : MonoBehaviour
             yield return new WaitForSeconds(turnDuration);
             player01.ApplyTurn();
             player02.ApplyTurn();
-            DoAttackAttack(player01, player02);
+            DoAttackAttack(player01, player02, _playerOne, _playerTwo);
+            IsDead(player01, player02);
             yield return new WaitForSeconds(2.0f);
-            DoAttackAttack(player02, player01);
+            DoAttackAttack(player02, player01, _playerTwo, _playerOne);
+            IsDead(player01, player02);
             player01.Controller.Lock();
             player02.Controller.Lock();
             player01.Controller.Reset();
             player02.Controller.Reset();
-            yield return new WaitForSeconds(4.0f);
-            
-            if(player01.Murmillon.Health <= 0 || player02.Murmillon.Health <= 0)
-            {
-                IsDead(player01, player02);
-                StopCoroutine(Battle());
-            }
-
+            yield return new WaitForSeconds(3.0f);
             timer = turnDuration;
 
             player01.Controller.Unlock();
@@ -78,14 +71,16 @@ public class GameLogic : MonoBehaviour
             yield return new WaitForSeconds(turnDuration);
             player01.ApplyTurn();
             player02.ApplyTurn();
-            DoAttackAttack(player02, player01);
+            DoAttackAttack(player02, player01, _playerTwo, _playerOne);
+            IsDead(player01, player02);
             yield return new WaitForSeconds(2.0f);
-            DoAttackAttack(player01, player02);
+            DoAttackAttack(player01, player02, _playerOne, _playerTwo);
+            IsDead(player01, player02);
             player01.Controller.Lock();
             player02.Controller.Lock();
             player01.Controller.Reset();
             player02.Controller.Reset();
-            yield return new WaitForSeconds(4.0f);
+            yield return new WaitForSeconds(3.0f);
             timer = turnDuration;
 
         }
@@ -95,27 +90,31 @@ public class GameLogic : MonoBehaviour
 
     public void IsDead(Player playerOne, Player playerTwo)
     {
-        enableTimer = false;
-        _restartlLevel.SetActive(true);
-
-        if(playerOne.Murmillon.Health <= 0)
-        {
+        if (playerOne.Murmillon.Health <= 0 || playerTwo.Murmillon.Health <= 0)
+        { 
+            enableTimer = false;
+            StopCoroutine(Battle());
+            if(playerOne.Murmillon.Health <= 0)
+            {
             playerOne.Murmillon.DeadClip();
             playerTwo.Murmillon.VictoryClip();
-        }
-        else if(playerTwo.Murmillon.Health <=0)
-        {
+            }
+            else if(playerTwo.Murmillon.Health <=0)
+            {
             playerTwo.Murmillon.DeadClip();
             playerOne.Murmillon.VictoryClip();
+            }
+            Invoke("RestartLevel", 7f);
+           
         }
     }
 
-    public void DoAttackAttack(Player attacker, Player defender)
+    public void DoAttackAttack(Player attacker, Player defender, SpriteRenderer attackPlayer, SpriteRenderer defencePlayer)
     {
-        StartCoroutine(DoAttackAttackRoutine(attacker, defender));
+        StartCoroutine(DoAttackAttackRoutine(attacker, defender, attackPlayer, defencePlayer));
     }
 
-    public IEnumerator DoAttackAttackRoutine(Player attacker, Player defender)
+    public IEnumerator DoAttackAttackRoutine(Player attacker, Player defender, SpriteRenderer attackPlayer, SpriteRenderer defencePlayer)
     {
         var defenderBodyPart = defender.TurnInfo.defenceBodyPart;
         var attackerBodyPart = attacker.TurnInfo.attackBodyPart;
@@ -138,65 +137,87 @@ public class GameLogic : MonoBehaviour
 
         if (defenderBodyPart != attackerBodyPart)
         {
-            if (counterattack && !forceDefence)
-            {
-                attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
-                defender.Murmillon.ApplyDamage(counterattackDamageInfo);
-                defender.Murmillon.TakingDamageClip(!forceDefence, defenderBodyPart, attackerBodyPart);
-            }
-            else if (counterattack && forceDefence)
-            {
-                attacker.Murmillon.AttackClip(!counterattack, attackerBodyPart);
-                defender.Murmillon.TakingDamageClip(forceDefence, defenderBodyPart, attackerBodyPart);
-                yield return null;
-                //defender.Murmillon.AttackClip(forceAttack, attackerBodyPart);
-                defender.Murmillon.ApplyDamage(forceDamageInfo);
+            attackPlayer.sortingOrder = 10;
+            defencePlayer.sortingOrder = 0;
 
+            if (attacker.Murmillon.Health > 0 && defender.Murmillon.Health > 0)
+            {
+                if (counterattack && !forceDefence)
+                {
+                    attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
+                    defender.Murmillon.ApplyDamage(counterattackDamageInfo);
+                    defender.Murmillon.TakingDamageClip(!forceDefence, defenderBodyPart, attackerBodyPart);
+                    //IsDead(attacker, defender);
+                }
+                else if (counterattack && forceDefence)
+                {
+                    attacker.Murmillon.AttackClip(!counterattack, attackerBodyPart);
+                    defender.Murmillon.TakingDamageClip(forceDefence, defenderBodyPart, attackerBodyPart);
+                    yield return null;
+                    defender.Murmillon.ApplyDamage(forceDamageInfo);
+                    //IsDead(attacker, defender);
+
+                }
+                else
+                {
+                    attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
+                    defender.Murmillon.TakingDamageClip(forceDefence, defenderBodyPart, attackerBodyPart);
+                    yield return null;
+                    defender.Murmillon.ApplyDamage(damageInfo);
+                    //IsDead(attacker, defender);
+                }
             }
             else
             {
-                attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
-                defender.Murmillon.TakingDamageClip(forceDefence, defenderBodyPart, attackerBodyPart);
-                yield return null;
-                defender.Murmillon.ApplyDamage(damageInfo);
+                IsDead(attacker, defender);
             }
         }
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         if (defenderBodyPart == attackerBodyPart)
         {
-            if (forceDefence && !counterattack)
+            attackPlayer.sortingOrder = 0;
+            defencePlayer.sortingOrder = 10;
+
+            if (attacker.Murmillon.Health > 0 && defender.Murmillon.Health > 0)
             {
-                attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
-                defender.Murmillon.DefendedClip(forceDefence, defenderBodyPart);
-                yield return null;
-                defender.Murmillon.AttackClip(!counterattack, defenderBodyPart);
-                attacker.Murmillon.TakingDamageClip(forceDefence, BodyPart.None, defenderBodyPart);
-                attacker.Murmillon.ApplyDamage(forceDamageInfo);
-            }
-            else if (forceDefence && counterattack)
-            {
-                attacker.Murmillon.AttackClip(!counterattack, attackerBodyPart);
-                defender.Murmillon.DefendedClip(forceDefence, defenderBodyPart);
-                yield return null;
-                defender.Murmillon.AttackClip(!counterattack, defenderBodyPart);
-                attacker.Murmillon.TakingDamageClip(forceDefence, BodyPart.None, defenderBodyPart);
-                attacker.Murmillon.ApplyDamage(forceDamageInfo);
+                if (forceDefence && !counterattack)
+                {
+                    attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
+                    defender.Murmillon.DefendedClip(forceDefence, defenderBodyPart);
+                    yield return null;
+                    defender.Murmillon.AttackClip(!counterattack, defenderBodyPart);
+                    attacker.Murmillon.TakingDamageClip(forceDefence, BodyPart.None, defenderBodyPart);
+                    attacker.Murmillon.ApplyDamage(forceDamageInfo);
+                    IsDead(attacker, defender);
+
+                }
+                else if (forceDefence && counterattack)
+                {
+                    attacker.Murmillon.AttackClip(!counterattack, attackerBodyPart);
+                    defender.Murmillon.DefendedClip(forceDefence, defenderBodyPart);
+                    yield return null;
+                    defender.Murmillon.AttackClip(!counterattack, defenderBodyPart);
+                    attacker.Murmillon.TakingDamageClip(forceDefence, BodyPart.None, defenderBodyPart);
+                    attacker.Murmillon.ApplyDamage(forceDamageInfo);
+                    IsDead(attacker, defender);
+                }
+                else
+                {
+                    attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
+                    defender.Murmillon.DefendedClip(forceDefence, defenderBodyPart);
+                }
             }
             else
             {
-                attacker.Murmillon.AttackClip(counterattack, attackerBodyPart);
-                defender.Murmillon.DefendedClip(forceDefence, defenderBodyPart);
-                //return;
+                IsDead(attacker, defender);
             }
         }
-
-
-
-
-
         
+    }
+
+    public void RestartLevel()
+    {
+        _restartlLevel.SetActive(true);
     }
 
     public void RestartBattle()
